@@ -25,6 +25,7 @@
 
         h1, h2, h3, h4 { margin: 0; font-weight: 700; }
         p { line-height: 1.6; color: var(--text-light); }
+        a { text-decoration: none; color: inherit; }
         button { cursor: pointer; transition: 0.3s; }
 
         /* --- 2. NAVBAR --- */
@@ -51,16 +52,16 @@
 
         .hamburger { 
             display: none; flex-direction: column; cursor: pointer; gap: 5px; 
-            z-index: 1100;
+            z-index: 1100; /* High Z-index to ensure it's clickable */
         }
         .line { width: 25px; height: 3px; background-color: #000; transition: 0.3s; }
 
         /* Mobile Drawer */
         .mobile-menu {
-            position: absolute; top: 70px; left: 0; width: 100%;
+            position: fixed; top: 70px; left: 0; width: 100%;
             background: #fff; flex-direction: column; padding: 0;
             max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
-            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05); z-index: 999;
         }
         .mobile-menu.active { max-height: 300px; border-bottom: 1px solid #eee; }
         .mobile-menu a {
@@ -95,9 +96,16 @@
         }
         .hero h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .hero p { font-size: 1.1rem; margin-bottom: 25px; color: #f0f0f0; }
-        .btn-main { padding: 15px 40px; background-color: var(--accent); color: white; border: none; font-weight: bold; letter-spacing: 1px; }
+        
+        /* UPDATED: Shop Now Link Button */
+        .btn-main { 
+            display: inline-block;
+            padding: 15px 40px; background-color: var(--accent); color: white; 
+            border: none; font-weight: bold; letter-spacing: 1px; 
+            text-transform: uppercase; font-size: 16px;
+        }
 
-        /* --- 4. ANIMATION SECTION (PC DEFAULT) --- */
+        /* --- 4. ANIMATION SECTION --- */
         .gallery-section { padding: 60px 20px; display: flex; justify-content: center; overflow: hidden; }
         .gallery-wrapper { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; max-width: 1200px; }
         
@@ -116,16 +124,13 @@
         .gallery-right h2 { font-size: 2rem; margin-bottom: 15px; }
         .gallery-right p { font-size: 1rem; color: #555; }
 
-        /* --- 5. SHOP GRID (UPDATED SMALLER IMAGES) --- */
+        /* --- 5. SHOP GRID --- */
         .shop-grid { padding: 40px 20px; background-color: #fff; }
         .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 1200px; margin: 0 auto; }
         .product-card { text-align: center; }
         
-        /* FIXED HEIGHT FOR SMALLER IMAGES */
         .card-img { 
-            width: 100%; 
-            height: 220px; /* Force them to be shorter */
-            object-fit: cover; 
+            width: 100%; height: 220px; object-fit: cover; 
             border-radius: 8px; margin-bottom: 10px; 
         }
         
@@ -140,8 +145,6 @@
         .footer-links a { color: #aaa; text-decoration: none; }
 
         /* --- MEDIA QUERIES --- */
-        
-        /* PC LAYOUT */
         @media (min-width: 900px) {
             .nav-links-desktop { display: flex; }
             .hamburger { display: none; }
@@ -150,48 +153,26 @@
             .gallery-wrapper { flex-direction: row; text-align: left; }
             .gallery-right { text-align: left; padding-left: 50px; }
             
-            /* PC Animation (Spread) */
             .gallery-container.active .img-back { opacity: 1; }
             .gallery-container.active .img-1 { transform: translate(-140px, 20px) rotate(-10deg); }
             .gallery-container.active .img-2 { transform: translate(140px, 20px) rotate(10deg); }
             .gallery-container.active .img-3 { transform: translate(0px, -100px) scale(0.9); }
             
-            /* Restore height for PC Shop images */
             .card-img { height: 350px; }
         }
 
-        /* MOBILE LAYOUT */
         @media (max-width: 899px) {
             .nav-links-desktop { display: none; } 
             .hamburger { display: flex; }
             
-            /* --- UPDATED MOBILE ANIMATION --- */
             .gallery-left { height: 280px; } 
 
-            /* 1. MUCH SMALLER CARD */
-            .gallery-container { 
-                width: 110px; /* Reduced to ~half original size */
-                height: 150px; 
-            }
+            .gallery-container { width: 110px; height: 150px; }
             
-            /* 2. WIDER SPREAD (To make them "come out more") */
             .gallery-container.active .img-back { opacity: 1; }
-            
-            /* Left: Move far left */
-            .gallery-container.active .img-1 {
-                transform: translate(-75px, 20px) rotate(-12deg) scale(0.95);
-                z-index: 2;
-            }
-            /* Right: Move far right */
-            .gallery-container.active .img-2 {
-                transform: translate(75px, 20px) rotate(12deg) scale(0.95);
-                z-index: 1;
-            }
-            /* Top: Move far up */
-            .gallery-container.active .img-3 {
-                transform: translate(0px, -80px) scale(0.95);
-                z-index: 3;
-            }
+            .gallery-container.active .img-1 { transform: translate(-75px, 20px) rotate(-12deg) scale(0.95); z-index: 2; }
+            .gallery-container.active .img-2 { transform: translate(75px, 20px) rotate(12deg) scale(0.95); z-index: 1; }
+            .gallery-container.active .img-3 { transform: translate(0px, -80px) scale(0.95); z-index: 3; }
         }
     </style>
 </head>
@@ -232,7 +213,7 @@
         <div class="live-now-btn">Live now!</div>
         <h1>Yanky Lush Collection</h1>
         <p>Experience luxury in every strand.</p>
-        <button class="btn-main">Shop Now</button>
+        <a href="products.html" class="btn-main">Shop Now</a>
     </header>
 
     <section class="gallery-section">
@@ -249,7 +230,7 @@
             <div class="gallery-right">
                 <h2>YankyLush Human Hair Collection</h2>
                 <p>Discover the Beauty of our Human Hair Collection — Effortless, soft and Unique.</p>
-                <button class="btn-main" style="margin-top: 15px; padding: 12px 30px;">Shop Now</button>
+                <a href="products.html" class="btn-main" style="margin-top: 15px; padding: 12px 30px;">Shop Now</a>
             </div>
         </div>
     </section>
@@ -257,9 +238,11 @@
     <section class="shop-grid">
         <div class="grid-container">
             <div class="product-card">
-                <img src="cramberry/cramberry.webp" class="card-img" alt="Ombre Caramel">
-                <span class="product-name">Ombre Caramel</span>
-                <span class="product-price">$125.00</span>
+                <a href="product-details.html">
+                    <img src="cramberry/cramberry3.webp" class="card-img" alt="Cranberry">
+                    <span class="product-name">Cranberry Mix</span>
+                    <span class="product-price">$95.00</span>
+                </a>
             </div>
             <div class="product-card">
                 <img src="cramberry/cramberry2.webp" class="card-img" alt="Ombre Brown">
@@ -272,9 +255,9 @@
                 <span class="product-price">$85.00</span>
             </div>
             <div class="product-card">
-                <img src="cramberry/cramberry3.webp" class="card-img" alt="Cranberry">
-                <span class="product-name">Cranberry Mix</span>
-                <span class="product-price">$95.00</span>
+                <img src="cramberry/cramberry.webp" class="card-img" alt="Ombre Caramel">
+                <span class="product-name">Ombre Caramel</span>
+                <span class="product-price">$125.00</span>
             </div>
         </div>
     </section>

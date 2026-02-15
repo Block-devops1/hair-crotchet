@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - Crochet Braid Plus</title>
     <style>
-        /* --- 1. GLOBAL VARIABLES & RESET --- */
+        /* [Uses the same CSS as index.html for nav/vars] */
         :root {
             --primary: #000;
             --accent: #f4a261;
+            --yellow-review: #f4c150;
             --bg-light: #f9f9f9;
             --text-dark: #333;
-            --text-light: #666;
+            --text-light: #555;
         }
         
         * { box-sizing: border-box; }
@@ -22,144 +23,88 @@
             color: var(--text-dark); overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 { margin: 0; font-weight: 700; }
-        p { line-height: 1.6; color: var(--text-light); }
         a { text-decoration: none; color: inherit; }
         button { cursor: pointer; transition: 0.3s; }
 
-        /* --- 2. NAVBAR (FIXED: Same as Homepage) --- */
-        nav {
-            background-color: #ffffff; padding: 15px 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
-        .logo img { height: 45px; width: auto; display: block; }
-
-        /* Desktop Nav */
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a {
-            color: var(--text-dark); font-size: 14px; font-weight: 600;
-            text-transform: uppercase; transition: color 0.3s; padding: 10px 0;
-        }
-        .nav-links a:hover { color: var(--accent); }
-
-        /* HAMBURGER (Mobile Only) */
-        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-        .line { width: 25px; height: 3px; background-color: #000; transition: 0.3s; }
-
-        .icons { display: flex; align-items: center; }
-        .icons svg {
-            width: 24px; height: 24px; margin-left: 20px; 
-            cursor: pointer; stroke: #000; fill: none;        
-            stroke-width: 2; transition: stroke 0.3s;
-        }
-
-        /* --- 3. PAGE HEADER --- */
-        .page-header {
-            background-color: #f4f4f4; padding: 60px 20px; text-align: center; border-bottom: 1px solid #eee;
-        }
-        .page-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .breadcrumb { font-size: 0.9rem; color: #888; }
-
-        /* --- 4. SHOP LAYOUT --- */
-        .shop-container {
-            display: flex; max-width: 1300px; margin: 0 auto; padding: 50px 20px; gap: 40px;
-        }
-
-        .sidebar { flex: 0 0 250px; display: none; }
-        @media(min-width: 768px) { .sidebar { display: block; } }
-
-        .filter-group { margin-bottom: 30px; }
-        .filter-group h3 { font-size: 16px; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 5px; display: inline-block; }
-        .filter-list { list-style: none; padding: 0; }
-        .filter-list li { margin-bottom: 10px; font-size: 14px; color: #555; cursor: pointer; transition: 0.2s; }
-        .filter-list li:hover { color: var(--accent); padding-left: 5px; }
-
-        .products-area { flex: 1; }
+        /* NAVBAR Styles (Same as Index) */
+        nav { background-color: #ffffff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo img { height: 40px; width: auto; display: block; }
+        .nav-links-desktop { display: flex; gap: 30px; }
+        .nav-links-desktop a { color: var(--text-dark); font-size: 14px; font-weight: 600; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
+        .nav-links-desktop a:hover { color: var(--accent); }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .icons { display: flex; align-items: center; gap: 15px; }
+        .icons svg { width: 24px; height: 24px; cursor: pointer; stroke: #000; fill: none; stroke-width: 2; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1100; }
+        .line { width: 25px; height: 3px; background-color: #000; }
         
-        .toolbar {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #eee;
-        }
+        .mobile-menu { position: fixed; top: 70px; left: 0; width: 100%; background: #fff; flex-direction: column; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; box-shadow: 0 10px 15px rgba(0,0,0,0.05); z-index: 999; }
+        .mobile-menu.active { max-height: 300px; border-bottom: 1px solid #eee; }
+        .mobile-menu a { display: block; padding: 15px 20px; text-align: center; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: #333; font-weight: 600; text-transform: uppercase; font-size: 14px; }
+
+        /* SHOP SPECIFIC CSS */
+        .page-header { background-color: #f4f4f4; padding: 60px 20px; text-align: center; border-bottom: 1px solid #eee; }
+        .page-header h1 { font-size: 2.5rem; margin-bottom: 10px; margin-top: 0; font-weight: 700; }
+        .shop-container { display: flex; max-width: 1300px; margin: 0 auto; padding: 50px 20px; gap: 40px; }
+        .sidebar { flex: 0 0 250px; display: none; }
+        .filter-group h3 { font-size: 16px; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 5px; display: inline-block; font-weight: 700; }
+        .filter-list { list-style: none; padding: 0; }
+        .filter-list li { margin-bottom: 10px; font-size: 14px; color: #555; cursor: pointer; }
+        .products-area { flex: 1; }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
         .sort-select { padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-
-        .product-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px;
-        }
-
-        .shop-card {
-            border: 1px solid #eee; border-radius: 8px; overflow: hidden;
-            transition: 0.3s; position: relative; display: flex; flex-direction: column;
-        }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        
+        .shop-card { border: 1px solid #eee; border-radius: 8px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; }
         .shop-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); transform: translateY(-5px); }
-
-        .shop-img-wrapper {
-            width: 100%; height: auto; aspect-ratio: 3 / 4; /* Mobile Fix */
-            overflow: hidden; background: #f0f0f0;
-        }
-        .shop-img-wrapper img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;
-        }
+        .shop-img-wrapper { width: 100%; height: auto; aspect-ratio: 3 / 4; overflow: hidden; background: #f0f0f0; }
+        .shop-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
         .shop-card:hover .shop-img-wrapper img { transform: scale(1.05); }
-
         .shop-details { padding: 15px; text-align: center; }
-        .shop-title { font-size: 16px; font-weight: bold; margin-bottom: 5px; color: #000; }
+        .shop-title { font-size: 16px; font-weight: bold; margin-bottom: 5px; color: #000; display: block;}
         .shop-price { color: var(--accent); font-weight: bold; font-size: 15px; }
+        .btn-add { display: block; width: 100%; padding: 10px; background: #000; color: #fff; border: none; margin-top: 10px; cursor: pointer; font-weight: 600; text-align: center; }
+        
+        footer { background-color: #111; color: #fff; padding: 60px 40px; margin-top: 50px; text-align: center; }
+        .footer-logo-img { width: 120px; display: inline-block; margin-bottom: 20px; }
 
-        .btn-add {
-            display: block; width: 100%; padding: 10px;
-            background: #000; color: #fff; border: none;
-            margin-top: 10px; cursor: pointer; font-weight: 600; transition: 0.2s;
-        }
-        .btn-add:hover { background: var(--accent); }
-
-        /* --- FOOTER --- */
-        footer { background-color: #111; color: #fff; padding: 60px 40px; margin-top: 50px; }
-        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 40px; }
-        .footer-logo-img { width: 180px; margin-bottom: 20px; display: block; }
-        .footer-col a { color: #aaa; text-decoration: none; display: block; margin-bottom: 10px; }
-
-        /* --- MOBILE STYLES --- */
-        @media (max-width: 768px) {
-            .hamburger { display: flex; } 
-            
-            .nav-links {
-                display: none; position: absolute; top: 70px; left: 0; width: 100%;
-                background-color: #fff; flex-direction: column; align-items: center;
-                padding: 30px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid #eee;
-            }
-            .nav-links.active { display: flex; }
-
+        @media(min-width: 768px) { .sidebar { display: block; } }
+        @media (max-width: 899px) {
+            .nav-links-desktop { display: none; } .hamburger { display: flex; }
             .shop-container { flex-direction: column; padding: 20px; }
-            .grid-container { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .grid-container, .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="hamburger" onclick="toggleMenu()">
-            <div class="line"></div><div class="line"></div><div class="line"></div>
-        </div>
-
         <a href="index.html" class="logo"><img src="main-logo.webp" alt="Crochet Braid Plus"></a>
-        
-        <div class="nav-links" id="navLinks">
+        <div class="nav-links-desktop">
             <a href="index.html">Home</a>
             <a href="products.html" style="color: var(--accent);">Products</a>
             <a href="reviews.html">Reviews</a>
             <a href="#">Contact</a>
         </div>
-        
-        <div class="icons">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <div class="nav-right">
+            <div class="icons">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div class="line"></div><div class="line"></div><div class="line"></div>
+            </div>
         </div>
     </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="#">Contact</a>
+    </div>
 
     <header class="page-header">
         <h1>All Products</h1>
-        <div class="breadcrumb">Home > Shop > <strong>All Products</strong></div>
     </header>
 
     <div class="shop-container">
@@ -177,7 +122,6 @@
         </aside>
 
         <main class="products-area">
-            
             <div class="toolbar">
                 <span class="showing-result">Showing all products</span>
                 <select class="sort-select" id="sortSelect" onchange="sortProducts()">
@@ -189,15 +133,17 @@
 
             <div class="product-grid" id="productGrid">
 
-                <div class="shop-card" data-price="125">
-                    <div class="shop-img-wrapper">
-                        <img src="cramberry/cramberry.webp" alt="Yanky Lush Cranberry">
-                    </div>
-                    <div class="shop-details">
-                        <div class="shop-title">Cranberry Mix</div>
-                        <div class="shop-price">$125.00</div>
-                        <button class="btn-add">Add to Bag</button>
-                    </div>
+                <div class="shop-card" data-price="95">
+                    <a href="product-details.html" style="display:block; height:100%;">
+                        <div class="shop-img-wrapper">
+                            <img src="cramberry/cramberry3.webp" alt="Cranberry">
+                        </div>
+                        <div class="shop-details">
+                            <span class="shop-title">Cranberry Mix</span>
+                            <span class="shop-price">$95.00</span>
+                            <div class="btn-add">View Details</div>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="shop-card" data-price="85">
@@ -205,9 +151,20 @@
                         <img src="cramberry/cramberry1.webp" alt="Yanky Lush Black">
                     </div>
                     <div class="shop-details">
-                        <div class="shop-title">Natural Black (1B)</div>
-                        <div class="shop-price">$85.00</div>
-                        <button class="btn-add">Add to Bag</button>
+                        <span class="shop-title">Natural Black (1B)</span>
+                        <span class="shop-price">$85.00</span>
+                        <div class="btn-add">Add to Bag</div>
+                    </div>
+                </div>
+
+                <div class="shop-card" data-price="125">
+                    <div class="shop-img-wrapper">
+                        <img src="cramberry/cramberry.webp" alt="Yanky Lush Cranberry">
+                    </div>
+                    <div class="shop-details">
+                        <span class="shop-title">Ombre Caramel</span>
+                        <span class="shop-price">$125.00</span>
+                        <div class="btn-add">Add to Bag</div>
                     </div>
                 </div>
 
@@ -216,20 +173,9 @@
                         <img src="cramberry/cramberry2.webp" alt="Yanky Twist Brown">
                     </div>
                     <div class="shop-details">
-                        <div class="shop-title">Ombre Brown</div>
-                        <div class="shop-price">$145.00</div>
-                        <button class="btn-add">Add to Bag</button>
-                    </div>
-                </div>
-
-                <div class="shop-card" data-price="95">
-                    <div class="shop-img-wrapper">
-                        <img src="cramberry/cramberry3.webp" alt="Silver Salt">
-                    </div>
-                    <div class="shop-details">
-                        <div class="shop-title">Silver Salt</div>
-                        <div class="shop-price">$95.00</div>
-                        <button class="btn-add">Add to Bag</button>
+                        <span class="shop-title">Ombre Brown</span>
+                        <span class="shop-price">$145.00</span>
+                        <div class="btn-add">Add to Bag</div>
                     </div>
                 </div>
 
@@ -238,27 +184,16 @@
     </div>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-col"><img src="white-logo.avif" alt="Crochet Braid Plus" class="footer-logo-img"></div>
-            <div class="footer-col">
-                <h4>Follow Us</h4>
-                <ul>
-                    <li><a href="https://www.instagram.com/crochetbraidsplus" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.facebook.com/profile.php?id=61572682072258" target="_blank">Facebook</a></li>
-                </ul>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 40px; font-size: 12px;">&copy; 2024 Crochet Braid Plus. All rights reserved.</div>
+        <img src="white-logo.avif" alt="Crochet Braid Plus" class="footer-logo-img">
+        <div style="font-size: 11px; color: #aaa;">&copy; 2024 Crochet Braid Plus. All rights reserved.</div>
     </footer>
 
     <script>
-        // 1. Mobile Menu Logic
         function toggleMenu() {
-            const nav = document.getElementById('navLinks');
-            nav.classList.toggle('active');
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
         }
 
-        // 2. Product Sorting Logic
         function sortProducts() {
             const select = document.getElementById('sortSelect');
             const value = select.value;
@@ -266,24 +201,14 @@
             const cards = Array.from(container.getElementsByClassName('shop-card'));
 
             if (value === 'low-high') {
-                // Sort Low to High
-                cards.sort((a, b) => {
-                    return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
-                });
+                cards.sort((a, b) => parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price')));
             } else if (value === 'high-low') {
-                // Sort High to Low
-                cards.sort((a, b) => {
-                    return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
-                });
+                cards.sort((a, b) => parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price')));
             } else {
-                // Shuffle Randomly (Simulate Default)
                 cards.sort(() => Math.random() - 0.5);
             }
-
-            // Re-append cards in new order
             cards.forEach(card => container.appendChild(card));
         }
     </script>
-
 </body>
 </html>
