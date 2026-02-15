@@ -43,101 +43,50 @@
             z-index: 1000;
         }
 
-        /* Logo Styling */
-        .logo img {
-            height: 50px;
-            width: auto;
-            display: block;
-        }
+        .logo img { height: 50px; width: auto; display: block; }
 
         .nav-links { display: flex; gap: 30px; align-items: center; }
-        
-        /* Main Link Styling */
         .nav-links > a, .dropbtn {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            transition: color 0.3s;
-            padding: 10px 0;
+            text-decoration: none; color: var(--text-dark); font-size: 14px;
+            font-weight: 600; text-transform: uppercase; transition: color 0.3s; padding: 10px 0;
         }
         .nav-links > a:hover, .dropdown:hover .dropbtn { color: var(--accent); }
 
-        /* --- DROPDOWN MENU STYLES --- */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-block; }
         .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            min-width: 400px; /* Wide enough for 2 columns */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            z-index: 1;
-            top: 100%;
-            left: -50%; /* Center relative to parent */
-            padding: 20px;
-            border-top: 3px solid var(--accent);
-            border-radius: 0 0 5px 5px;
+            display: none; position: absolute; background-color: #fff;
+            min-width: 400px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1; top: 100%; left: -50%; padding: 20px;
+            border-top: 3px solid var(--accent); border-radius: 0 0 5px 5px;
         }
-
-        /* Show the dropdown on hover */
-        .dropdown:hover .dropdown-content {
-            display: flex; /* Use Flexbox to put columns side-by-side */
-            gap: 40px;
-        }
-
-        /* Columns inside the dropdown */
-        .dropdown-col {
-            flex: 1;
-        }
-
+        .dropdown:hover .dropdown-content { display: flex; gap: 40px; }
+        .dropdown-col { flex: 1; }
         .dropdown-col h4 {
-            color: var(--accent);
-            font-size: 14px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
+            color: var(--accent); font-size: 14px; text-transform: uppercase;
+            margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;
         }
-
         .dropdown-col a {
-            color: #555;
-            padding: 5px 0;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-            transition: 0.2s;
+            color: #555; padding: 5px 0; text-decoration: none; display: block;
+            font-size: 13px; transition: 0.2s;
         }
+        .dropdown-col a:hover { color: #000; transform: translateX(5px); }
 
-        .dropdown-col a:hover {
-            color: #000;
-            transform: translateX(5px); /* Small slide effect */
-        }
-
-        /* --- UPDATED ICON STYLES --- */
-        .icons {
-            display: flex;
-            align-items: center;
-        }
-
+        .icons { display: flex; align-items: center; }
         .icons svg {
             width: 24px; height: 24px; margin-left: 20px; 
             cursor: pointer; stroke: #000; fill: none;        
             stroke-width: 2; transition: stroke 0.3s;
         }
-
         .icons svg:hover { stroke: var(--accent); }
 
-        /* --- 3. HERO SECTION --- */
+        /* --- 3. HERO SECTION (FIXED HEAD POSITION) --- */
         .hero {
             height: 90vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('cramberry/cramberry2.webp');
+            /* Changed position from 'center' to 'center 20%' to push image down so head shows */
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('cramberry/cramberry2.webp');
             background-size: cover;
-            background-position: center;
+            background-position: center 20%; /* Top 20% is the focus point now */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -164,16 +113,60 @@
         .feature-item { max-width: 250px; }
         .feature-icon { font-size: 40px; margin-bottom: 15px; display: block; }
 
-        /* --- 5. ANIMATED HIGHLIGHT SECTION --- */
+        /* --- 5. UPDATED ANIMATION SECTION (Left Animation, Right Text) --- */
         .gallery-section {
-            padding: 80px 20px; display: flex; flex-direction: column;
-            align-items: center; background-color: #fff; overflow: hidden;
+            padding: 80px 40px;
+            background-color: #fff;
+            overflow: hidden;
+            /* Use Flex to align items */
+            display: flex;
+            justify-content: center;
         }
 
-        .section-title { font-size: 2.5rem; margin-bottom: 60px; text-align: center; }
+        .gallery-wrapper {
+            display: flex;
+            flex-direction: column; /* Mobile Default: Column */
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
+        }
 
+        /* The Left Side (Animation) */
+        .gallery-left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px; /* Gives space for animation */
+        }
+
+        /* The Right Side (Text) */
+        .gallery-right {
+            flex: 1;
+            text-align: center; /* Center on mobile */
+            padding: 0 20px;
+        }
+
+        .gallery-right h2 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.2; }
+        .gallery-right p { font-size: 1.1rem; margin-bottom: 30px; color: #555; }
+
+        /* PC Layout (Side by Side) */
+        @media (min-width: 900px) {
+            .gallery-wrapper {
+                flex-direction: row; /* Change to Row */
+                text-align: left;
+                align-items: center; /* Center vertically */
+            }
+            .gallery-right {
+                text-align: left; /* Left align text on PC */
+                padding-left: 50px;
+            }
+        }
+
+        /* Animation Container */
         .gallery-container {
-            position: relative; width: 240px; height: 320px; margin-bottom: 40px; cursor: pointer;
+            position: relative; width: 240px; height: 320px; cursor: pointer;
         }
 
         .gallery-img {
@@ -194,38 +187,25 @@
 
         /* --- 6. SHOP GRID --- */
         .shop-grid { padding: 80px 40px; background-color: #fff; }
-        
         .grid-container {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px; max-width: 1200px; margin: 0 auto;
         }
-
         .product-card { text-align: center; transition: transform 0.3s; }
         .product-card:hover { transform: translateY(-10px); }
-
-        .card-img {
-            width: 100%; height: 350px; object-fit: cover;
-            border-radius: 8px; margin-bottom: 15px;
-        }
-
+        .card-img { width: 100%; height: 350px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
         .product-name { font-weight: bold; margin-bottom: 5px; display: block; }
         .product-price { color: var(--text-light); margin-bottom: 10px; display: block; }
         .rating { color: #FFD700; font-size: 14px; }
 
-        /* --- 7. REVIEWS SECTION --- */
-        .reviews-section {
-            background-color: #fdf6ee; padding: 80px 20px; text-align: center;
-        }
+        /* --- 7. REVIEWS & FOOTER --- */
+        .reviews-section { background-color: #fdf6ee; padding: 80px 20px; text-align: center; }
         .review-stars { color: #f4a261; font-size: 30px; margin-bottom: 20px; }
         .review-text { font-size: 1.5rem; font-weight: bold; max-width: 600px; margin: 0 auto 30px auto; }
         .review-author { font-style: italic; color: #555; }
 
-        /* --- 8. FOOTER --- */
         footer { background-color: #111; color: #fff; padding: 60px 40px; }
-        .footer-content {
-            display: flex; flex-wrap: wrap; justify-content: space-between;
-            max-width: 1200px; margin: 0 auto; gap: 40px;
-        }
+        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 40px; }
         .footer-logo-img { width: 180px; margin-bottom: 20px; display: block; }
         .footer-col h4 { margin-bottom: 20px; font-size: 1.2rem; }
         .footer-col ul { list-style: none; padding: 0; }
@@ -233,13 +213,12 @@
         .footer-col a { color: #aaa; text-decoration: none; transition: color 0.3s; }
         .footer-col a:hover { color: #fff; }
 
-        /* --- 9. POP-UP --- */
+        /* --- 8. POP-UP --- */
         .popup-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); display: none;
             justify-content: center; align-items: center; z-index: 2000;
         }
-
         .popup-box {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('cramberry/cramberry2.webp');
             background-size: cover; background-position: center;
@@ -247,7 +226,6 @@
             text-align: center; position: relative; color: white;
             border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #fff; }
         .popup-box h2 { margin-top: 0; font-size: 2rem; margin-bottom: 10px; }
         .popup-box p { color: #ddd; margin-bottom: 20px; }
@@ -265,47 +243,27 @@
 <body>
 
     <nav>
-        <a href="#" class="logo">
-            <img src="main-logo.webp" alt="Crochet Braid Plus">
-        </a>
-        
+        <a href="#" class="logo"><img src="main-logo.webp" alt="Crochet Braid Plus"></a>
         <div class="nav-links">
             <a href="#">Home</a>
-            
             <div class="dropdown">
                 <a href="#" class="dropbtn">Products ▾</a>
                 <div class="dropdown-content">
                     <div class="dropdown-col">
                         <h4>Yanky Lush</h4>
-                        <a href="#">Cranberry</a>
-                        <a href="#">Ombre</a>
-                        <a href="#">Silver Salt</a>
-                        <a href="#">Caramel</a>
+                        <a href="#">Cranberry</a><a href="#">Ombre</a><a href="#">Silver Salt</a><a href="#">Caramel</a>
                     </div>
                     <div class="dropdown-col">
                         <h4>Yanky Twist</h4>
-                        <a href="#">Natural Black</a>
-                        <a href="#">Chocolate</a>
-                        <a href="#">Burgundy</a>
-                        <a href="#">Gold Mix</a>
+                        <a href="#">Natural Black</a><a href="#">Chocolate</a><a href="#">Burgundy</a><a href="#">Gold Mix</a>
                     </div>
                 </div>
             </div>
-
-            <a href="#">Reviews</a>
-            <a href="#">Contact</a>
+            <a href="#">Reviews</a><a href="#">Contact</a>
         </div>
-        
         <div class="icons">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <path d="M16 10a4 4 0 0 1-8 0"></path>
-            </svg>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         </div>
     </nav>
 
@@ -316,62 +274,39 @@
     </header>
 
     <section class="features">
-        <div class="feature-item">
-            <span class="feature-icon">✨</span>
-            <h3>100% Handmade</h3>
-            <p>Crafted by skilled artisans for a natural look.</p>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">🍃</span>
-            <h3>Lightweight</h3>
-            <p>Comfortable for everyday wear, no tension.</p>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">💧</span>
-            <h3>Water Friendly</h3>
-            <p>Resists frizz and holds shape when wet.</p>
-        </div>
+        <div class="feature-item"><span class="feature-icon">✨</span><h3>100% Handmade</h3><p>Crafted by skilled artisans for a natural look.</p></div>
+        <div class="feature-item"><span class="feature-icon">🍃</span><h3>Lightweight</h3><p>Comfortable for everyday wear, no tension.</p></div>
+        <div class="feature-item"><span class="feature-icon">💧</span><h3>Water Friendly</h3><p>Resists frizz and holds shape when wet.</p></div>
     </section>
 
     <section class="gallery-section">
-        <h2 class="section-title">The Cranberry Look</h2>
-        <div class="gallery-container" id="animated-card">
-            <img src="cramberry/cramberry1.webp" class="gallery-img img-back img-1" alt="Side">
-            <img src="cramberry/cramberry2.webp" class="gallery-img img-back img-2" alt="Back">
-            <img src="cramberry/cramberry3.webp" class="gallery-img img-back img-3" alt="Detail">
-            <img src="cramberry/cramberry.webp" class="gallery-img img-main" alt="Main">
+        <div class="gallery-wrapper">
+            
+            <div class="gallery-left">
+                <div class="gallery-container" id="animated-card">
+                    <img src="cramberry/cramberry1.webp" class="gallery-img img-back img-1" alt="Side">
+                    <img src="cramberry/cramberry2.webp" class="gallery-img img-back img-2" alt="Back">
+                    <img src="cramberry/cramberry3.webp" class="gallery-img img-back img-3" alt="Detail">
+                    <img src="cramberry/cramberry.webp" class="gallery-img img-main" alt="Main">
+                </div>
+            </div>
+
+            <div class="gallery-right">
+                <h2>YankyLush Human Hair Collection</h2>
+                <p>Discover the Beauty of our Human Hair Collection — Effortless, soft and Unique.</p>
+                <button class="btn-main">Shop Now</button>
+            </div>
+
         </div>
-        <p><i>Scroll to see the details unfold</i></p>
-        <button class="btn-main" style="margin-top: 30px;">Buy This Look</button>
     </section>
 
     <section class="shop-grid">
         <h2 class="section-title">Shop The Collection</h2>
         <div class="grid-container">
-            <div class="product-card">
-                <img src="cramberry/cramberry.webp" class="card-img" alt="Ombre Caramel">
-                <span class="product-name">Ombre Caramel</span>
-                <span class="product-price">₦41,700.00</span>
-                <div class="rating">★★★★★ (114)</div>
-            </div>
-            <div class="product-card">
-                <img src="cramberry/cramberry2.webp" class="card-img" alt="Ombre Brown">
-                <span class="product-name">Ombre Brown</span>
-                <span class="product-price">₦41,700.00</span>
-                <div class="rating">★★★★★ (85)</div>
-            </div>
-            <div class="product-card">
-                <img src="cramberry/cramberry1.webp" class="card-img" alt="Natural Black">
-                <span class="product-name">Natural Black (1B)</span>
-                <span class="product-price">₦41,700.00</span>
-                <div class="rating">★★★★★ (141)</div>
-            </div>
-            <div class="product-card">
-                <img src="cramberry/cramberry3.webp" class="card-img" alt="Cranberry Mix">
-                <span class="product-name">Cranberry Mix</span>
-                <span class="product-price">₦41,700.00</span>
-                <div class="rating">★★★★★ (92)</div>
-            </div>
+            <div class="product-card"><img src="cramberry/cramberry.webp" class="card-img" alt="Ombre Caramel"><span class="product-name">Ombre Caramel</span><span class="product-price">₦41,700.00</span><div class="rating">★★★★★ (114)</div></div>
+            <div class="product-card"><img src="cramberry/cramberry2.webp" class="card-img" alt="Ombre Brown"><span class="product-name">Ombre Brown</span><span class="product-price">₦41,700.00</span><div class="rating">★★★★★ (85)</div></div>
+            <div class="product-card"><img src="cramberry/cramberry1.webp" class="card-img" alt="Natural Black"><span class="product-name">Natural Black (1B)</span><span class="product-price">₦41,700.00</span><div class="rating">★★★★★ (141)</div></div>
+            <div class="product-card"><img src="cramberry/cramberry3.webp" class="card-img" alt="Cranberry Mix"><span class="product-name">Cranberry Mix</span><span class="product-price">₦41,700.00</span><div class="rating">★★★★★ (92)</div></div>
         </div>
     </section>
 
@@ -383,30 +318,11 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-col">
-                <img src="white-logo.avif" alt="Crochet Braid Plus" class="footer-logo-img">
-                <p>Bringing luxury and convenience to your doorstep.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Help</h4>
-                <ul>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Store Policy</a></li>
-                    <li><a href="#">Payment Methods</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Follow Us</h4>
-                <ul>
-                    <li><a href="https://www.instagram.com/crochetbraidsplus" target="_blank">Instagram</a></li>
-                    <li><a href="#">TikTok</a></li>
-                    <li><a href="https://www.facebook.com/profile.php?id=61572682072258" target="_blank">Facebook</a></li>
-                </ul>
-            </div>
+            <div class="footer-col"><img src="white-logo.avif" alt="Crochet Braid Plus" class="footer-logo-img"><p>Bringing luxury and convenience to your doorstep.</p></div>
+            <div class="footer-col"><h4>Help</h4><ul><li><a href="#">Shipping & Returns</a></li><li><a href="#">Store Policy</a></li><li><a href="#">Payment Methods</a></li></ul></div>
+            <div class="footer-col"><h4>Follow Us</h4><ul><li><a href="https://www.instagram.com/crochetbraidsplus" target="_blank">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="https://www.facebook.com/profile.php?id=61572682072258" target="_blank">Facebook</a></li></ul></div>
         </div>
-        <div style="text-align: center; margin-top: 40px; color: #555; font-size: 12px;">
-            &copy; 2024 Crochet Braid Plus. All rights reserved.
-        </div>
+        <div style="text-align: center; margin-top: 40px; color: #555; font-size: 12px;">&copy; 2024 Crochet Braid Plus. All rights reserved.</div>
     </footer>
 
     <div class="popup-overlay" id="promoPopup">
@@ -420,28 +336,17 @@
     </div>
 
     <script>
-        // 1. POP-UP LOGIC
         window.onload = function() {
             const path = window.location.pathname;
             if (path.endsWith('index.html') || path === '/' || path.endsWith('/')) {
-                setTimeout(function() {
-                    document.getElementById('promoPopup').style.display = 'flex';
-                }, 5000); 
+                setTimeout(function() { document.getElementById('promoPopup').style.display = 'flex'; }, 5000); 
             }
         };
-
-        function closePopup() {
-            document.getElementById('promoPopup').style.display = 'none';
-        }
-
-        // 2. SCROLL ANIMATION
+        function closePopup() { document.getElementById('promoPopup').style.display = 'none'; }
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('active'); }
+                else { entry.target.classList.remove('active'); }
             });
         }, { threshold: 0.5 });
         observer.observe(document.getElementById('animated-card'));
