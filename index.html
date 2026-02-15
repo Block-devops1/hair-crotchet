@@ -9,7 +9,7 @@
         :root {
             --primary: #000;
             --accent: #f4a261;
-            --yellow-review: #f4c150; /* The yellow from your screenshot */
+            --yellow-review: #f4c150;
             --bg-light: #f9f9f9;
             --text-dark: #333;
             --text-light: #555;
@@ -35,9 +35,15 @@
         }
         .logo img { height: 40px; width: auto; display: block; }
 
-        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        /* Hamburger (Default Hidden, Visible on Mobile via Media Query) */
+        .hamburger { 
+            display: none; /* Hidden by default (PC) */
+            flex-direction: column; cursor: pointer; gap: 5px; 
+            z-index: 1100;
+        }
         .line { width: 25px; height: 3px; background-color: #000; }
 
+        /* PC Links */
         .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { color: var(--text-dark); font-size: 14px; font-weight: 600; text-transform: uppercase; text-decoration: none; }
 
@@ -55,7 +61,7 @@
             box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* --- 3. HERO SECTION (With "Live Now" Button) --- */
+        /* --- 3. HERO SECTION --- */
         .hero {
             height: 85vh;
             background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('cramberry/cramberry2.webp');
@@ -64,7 +70,6 @@
             text-align: center; color: white; padding: 20px; position: relative;
         }
         
-        /* The "Live Now" Pill Button */
         .live-now-btn {
             background: #fff; color: #000; padding: 8px 25px; 
             border-radius: 50px; font-weight: bold; font-size: 14px;
@@ -75,7 +80,7 @@
         .hero p { font-size: 1.1rem; margin-bottom: 25px; color: #f0f0f0; }
         .btn-main { padding: 15px 40px; background-color: var(--accent); color: white; border: none; font-weight: bold; letter-spacing: 1px; }
 
-        /* --- 4. ANIMATION SECTION (TIGHT CLUSTER FIX) --- */
+        /* --- 4. ANIMATION SECTION (PC DEFAULT) --- */
         .gallery-section { padding: 60px 20px; display: flex; justify-content: center; overflow: hidden; }
         .gallery-wrapper { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; max-width: 1200px; }
         
@@ -84,62 +89,34 @@
             display: flex; justify-content: center; align-items: center; 
         }
 
-        /* Container Size */
-        .gallery-container { position: relative; width: 200px; height: 280px; }
+        /* PC Size (Larger) */
+        .gallery-container { position: relative; width: 240px; height: 320px; }
 
-        /* Images */
         .gallery-img { 
             position: absolute; width: 100%; height: 100%; object-fit: cover; 
             border-radius: 8px; transition: all 0.8s ease; 
         }
 
-        /* Main Image stays on top */
         .img-main { z-index: 10; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-
-        /* Background Images (Hidden behind) */
         .img-back { z-index: 1; opacity: 0; transform: scale(0.8); }
 
-        /* --- THE NEW "COLLAGE" ANIMATION --- */
-        /* This keeps them CLOSE to the main image so they don't go off screen */
-        
-        .gallery-container.active .img-back { opacity: 1; }
-
-        /* 1. Left Image: Peeks out slightly to the left & down */
-        .gallery-container.active .img-1 {
-            transform: translate(-60px, 40px) rotate(-15deg) scale(0.85);
-            z-index: 2;
-        }
-
-        /* 2. Top Right Image: Peeks out top right */
-        .gallery-container.active .img-2 {
-            transform: translate(50px, -40px) rotate(10deg) scale(0.85);
-            z-index: 1;
-        }
-
-        /* 3. Bottom Right Image: Peeks out bottom right */
-        .gallery-container.active .img-3 {
-            transform: translate(60px, 80px) rotate(5deg) scale(0.85);
-            z-index: 3;
-        }
-
-        /* Right Text Section */
-        .gallery-right { text-align: center; padding: 0 10px; }
-        .gallery-right h2 { font-size: 2rem; margin-bottom: 15px; }
-        .gallery-right p { font-size: 1rem; color: #555; }
-
-        /* --- PC STYLES (Restores PC layout) --- */
+        /* --- PC ANIMATION (Larger Spread) --- */
         @media (min-width: 900px) {
             .nav-links { display: flex; }
-            .hamburger { display: none; }
+            .hamburger { display: none; } /* Hide Hamburger on PC */
+            
             .gallery-wrapper { flex-direction: row; text-align: left; }
             .gallery-right { text-align: left; padding-left: 50px; }
             
-            /* Larger animation for PC */
-            .gallery-container { width: 240px; height: 320px; }
+            .gallery-container.active .img-back { opacity: 1; }
             .gallery-container.active .img-1 { transform: translate(-140px, 20px) rotate(-10deg); }
             .gallery-container.active .img-2 { transform: translate(140px, 20px) rotate(10deg); }
             .gallery-container.active .img-3 { transform: translate(0px, -100px) scale(0.9); }
         }
+
+        .gallery-right { text-align: center; padding: 0 10px; }
+        .gallery-right h2 { font-size: 2rem; margin-bottom: 15px; }
+        .gallery-right p { font-size: 1rem; color: #555; }
 
         /* --- 5. SHOP GRID --- */
         .shop-grid { padding: 40px 20px; background-color: #fff; }
@@ -156,14 +133,46 @@
         .footer-links li { margin-bottom: 10px; }
         .footer-links a { color: #aaa; text-decoration: none; }
 
-        /* --- MOBILE NAV --- */
+        /* --- MOBILE STYLES (FIXED) --- */
         @media (max-width: 768px) {
+            
+            /* 1. Show Hamburger */
+            .hamburger { display: flex; } 
+            
+            /* 2. Hide PC Links / Show Mobile Menu */
             .nav-links {
                 display: none; position: absolute; top: 60px; left: 0; width: 100%;
                 background: #fff; flex-direction: column; padding: 20px;
                 border-top: 1px solid #eee; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             }
             .nav-links.active { display: flex; }
+
+            /* 3. SMALLER ANIMATION FOR MOBILE */
+            .gallery-container { 
+                width: 160px; /* Reduced from 240px */
+                height: 215px; /* Reduced from 320px */
+            }
+            
+            .gallery-left { height: 300px; } /* Less vertical space needed */
+
+            /* TIGHTER CLUSTER ANIMATION (Mobile) */
+            .gallery-container.active .img-back { opacity: 1; }
+            
+            /* Moves slightly left */
+            .gallery-container.active .img-1 {
+                transform: translate(-50px, 30px) rotate(-10deg) scale(0.9);
+                z-index: 2;
+            }
+            /* Moves slightly top-right */
+            .gallery-container.active .img-2 {
+                transform: translate(40px, -30px) rotate(8deg) scale(0.9);
+                z-index: 1;
+            }
+            /* Moves slightly bottom-right */
+            .gallery-container.active .img-3 {
+                transform: translate(50px, 60px) rotate(5deg) scale(0.9);
+                z-index: 3;
+            }
         }
     </style>
 </head>
