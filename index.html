@@ -9,6 +9,7 @@
         :root {
             --primary: #000;
             --accent: #f4a261;
+            --yellow-review: #f4c150; /* The yellow from your screenshot */
             --bg-light: #f9f9f9;
             --text-dark: #333;
             --text-light: #555;
@@ -28,211 +29,147 @@
 
         /* --- 2. NAVBAR --- */
         nav {
-            background-color: #ffffff;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background-color: #ffffff; padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
+        .logo img { height: 40px; width: auto; display: block; }
 
-        .logo img { height: 45px; width: auto; display: block; }
-
-        /* DESKTOP NAV (Visible on PC) */
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a {
-            text-decoration: none; color: var(--text-dark); font-size: 14px;
-            font-weight: 600; text-transform: uppercase; transition: color 0.3s; padding: 10px 0;
-        }
-        .nav-links a:hover { color: var(--accent); }
-
-        /* HAMBURGER (Hidden on PC) */
         .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-        .line { width: 25px; height: 3px; background-color: #000; transition: 0.3s; }
+        .line { width: 25px; height: 3px; background-color: #000; }
 
-        /* ICONS */
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--text-dark); font-size: 14px; font-weight: 600; text-transform: uppercase; text-decoration: none; }
+
         .icons { display: flex; align-items: center; }
-        .icons svg {
-            width: 24px; height: 24px; margin-left: 20px; 
-            cursor: pointer; stroke: #000; fill: none;        
-            stroke-width: 2; transition: stroke 0.3s;
+        .icons svg { width: 24px; height: 24px; margin-left: 15px; cursor: pointer; stroke: #000; fill: none; stroke-width: 2; }
+
+        /* --- STICKY RIGHT REVIEW TAB --- */
+        .sticky-review-tab {
+            position: fixed; top: 50%; right: 0; transform: translateY(-50%);
+            background-color: var(--yellow-review); color: #fff;
+            writing-mode: vertical-rl; text-orientation: mixed;
+            padding: 15px 5px; font-weight: bold; font-size: 12px;
+            border-top-left-radius: 5px; border-bottom-left-radius: 5px;
+            z-index: 2000; cursor: pointer; letter-spacing: 1px;
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* --- 3. HERO SECTION --- */
+        /* --- 3. HERO SECTION (With "Live Now" Button) --- */
         .hero {
-            height: 90vh;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('cramberry/cramberry2.webp');
-            background-size: cover;
-            background-position: center 20%; 
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('cramberry/cramberry2.webp');
+            background-size: cover; background-position: center 20%; 
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; color: white; padding: 20px;
+            text-align: center; color: white; padding: 20px; position: relative;
         }
-        .hero h1 { 
-            font-size: 3.5rem; margin-bottom: 15px; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
-            max-width: 800px;
-        }
-        .hero p { 
-            font-size: 1.3rem; margin-bottom: 30px; color: #f0f0f0; 
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5); font-weight: 500;
+        
+        /* The "Live Now" Pill Button */
+        .live-now-btn {
+            background: #fff; color: #000; padding: 8px 25px; 
+            border-radius: 50px; font-weight: bold; font-size: 14px;
+            margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .btn-main {
-            padding: 15px 40px; background-color: var(--accent); color: white;
-            border: none; font-size: 16px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
+        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.1rem; margin-bottom: 25px; color: #f0f0f0; }
+        .btn-main { padding: 15px 40px; background-color: var(--accent); color: white; border: none; font-weight: bold; letter-spacing: 1px; }
+
+        /* --- 4. ANIMATION SECTION (TIGHT CLUSTER FIX) --- */
+        .gallery-section { padding: 60px 20px; display: flex; justify-content: center; overflow: hidden; }
+        .gallery-wrapper { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; max-width: 1200px; }
+        
+        .gallery-left { 
+            position: relative; width: 100%; height: 350px; 
+            display: flex; justify-content: center; align-items: center; 
         }
 
-        /* --- 4. ANIMATION SECTION (SEQUENTIAL) --- */
-        .gallery-section { padding: 100px 40px; display: flex; justify-content: center; overflow: hidden; }
-        .gallery-wrapper { display: flex; align-items: center; gap: 60px; max-width: 1200px; width: 100%; }
-        
-        .gallery-left { flex: 1; display: flex; justify-content: center; align-items: center; min-height: 450px; }
-        .gallery-right { flex: 1; padding-left: 20px; }
-        
-        /* Typography */
-        .gallery-right h2 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.1; }
-        .gallery-right p { font-size: 1.1rem; margin-bottom: 20px; color: #555; }
-        .highlight { color: var(--accent); font-weight: bold; }
+        /* Container Size */
+        .gallery-container { position: relative; width: 200px; height: 280px; }
 
-        /* The Animation Container */
-        .gallery-container { position: relative; width: 240px; height: 320px; cursor: pointer; }
-        
+        /* Images */
         .gallery-img { 
             position: absolute; width: 100%; height: 100%; object-fit: cover; 
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy pop effect */
+            border-radius: 8px; transition: all 0.8s ease; 
         }
-        
-        .img-main { z-index: 10; border-radius: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .img-back { z-index: 1; opacity: 0; transform: scale(0.8); border-radius: 12px; background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
 
-        /* --- THE SEQUENTIAL POP-OUT ANIMATION --- */
+        /* Main Image stays on top */
+        .img-main { z-index: 10; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+
+        /* Background Images (Hidden behind) */
+        .img-back { z-index: 1; opacity: 0; transform: scale(0.8); }
+
+        /* --- THE NEW "COLLAGE" ANIMATION --- */
+        /* This keeps them CLOSE to the main image so they don't go off screen */
+        
         .gallery-container.active .img-back { opacity: 1; }
 
-        /* 1. Left (0.1s delay) */
+        /* 1. Left Image: Peeks out slightly to the left & down */
         .gallery-container.active .img-1 {
-            transform: translate(-140px, 10px) rotate(-8deg) scale(1);
-            transition-delay: 0.1s;
+            transform: translate(-60px, 40px) rotate(-15deg) scale(0.85);
+            z-index: 2;
         }
-        /* 2. Top (0.3s delay) */
+
+        /* 2. Top Right Image: Peeks out top right */
         .gallery-container.active .img-2 {
-            transform: translate(0px, -150px) scale(1); /* Moves straight up */
-            transition-delay: 0.3s;
-            z-index: 2; 
+            transform: translate(50px, -40px) rotate(10deg) scale(0.85);
+            z-index: 1;
         }
-        /* 3. Right (0.5s delay) */
+
+        /* 3. Bottom Right Image: Peeks out bottom right */
         .gallery-container.active .img-3 {
-            transform: translate(140px, 10px) rotate(8deg) scale(1);
-            transition-delay: 0.5s;
+            transform: translate(60px, 80px) rotate(5deg) scale(0.85);
+            z-index: 3;
         }
 
-        /* --- 5. FEATURES --- */
-        .features {
-            padding: 60px 20px; display: flex; justify-content: center;
-            gap: 40px; flex-wrap: wrap; background-color: var(--bg-light); text-align: center;
-        }
-        .feature-item { max-width: 300px; padding: 20px; }
-        .feature-icon { font-size: 40px; margin-bottom: 15px; display: block; }
-        .feature-item h3 { margin-bottom: 10px; font-size: 1.2rem; }
-        .feature-item p { font-size: 0.95rem; }
+        /* Right Text Section */
+        .gallery-right { text-align: center; padding: 0 10px; }
+        .gallery-right h2 { font-size: 2rem; margin-bottom: 15px; }
+        .gallery-right p { font-size: 1rem; color: #555; }
 
-        /* --- 6. SHOP GRID --- */
-        .shop-grid { padding: 60px 40px; background-color: #fff; }
-        .grid-container {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 40px; max-width: 1200px; margin: 0 auto;
-        }
-        .product-card { text-align: center; }
-        
-        /* Image Ratio Fix for Mobile */
-        .card-img {
-            width: 100%; height: auto; aspect-ratio: 3 / 4;
-            object-fit: cover; border-radius: 8px; margin-bottom: 10px;
-        }
-        
-        .product-name { font-weight: bold; margin-bottom: 5px; display: block; }
-        .product-price { color: var(--text-light); margin-bottom: 10px; display: block; }
-
-        /* --- 7. FOOTER --- */
-        footer { background-color: #111; color: #fff; padding: 60px 40px; }
-        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
-        .footer-logo-img { width: 150px; display: block; margin-bottom: 20px; }
-        .footer-col a { color: #aaa; text-decoration: none; display: block; margin-bottom: 10px; }
-
-        /* --- 8. POP-UP --- */
-        .popup-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); display: none;
-            justify-content: center; align-items: center; z-index: 2000;
-        }
-        .popup-box {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('cramberry/cramberry2.webp');
-            background-size: cover; background-position: center;
-            padding: 50px 30px; width: 90%; max-width: 450px;
-            text-align: center; position: relative; color: white;
-            border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #fff; }
-        .popup-box h2 { margin-top: 0; font-size: 2rem; margin-bottom: 10px; }
-        .popup-box p { color: #ddd; margin-bottom: 20px; }
-        .popup-box input { width: 100%; padding: 12px; margin: 15px 0; border: none; border-radius: 4px; }
-        .popup-box button { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 4px; font-weight: bold; }
-
-        /* --- MOBILE RESPONSIVENESS (FIXED ANIMATION) --- */
-        @media (max-width: 768px) {
-            .hamburger { display: flex; } 
+        /* --- PC STYLES (Restores PC layout) --- */
+        @media (min-width: 900px) {
+            .nav-links { display: flex; }
+            .hamburger { display: none; }
+            .gallery-wrapper { flex-direction: row; text-align: left; }
+            .gallery-right { text-align: left; padding-left: 50px; }
             
-            /* Navbar Mobile */
+            /* Larger animation for PC */
+            .gallery-container { width: 240px; height: 320px; }
+            .gallery-container.active .img-1 { transform: translate(-140px, 20px) rotate(-10deg); }
+            .gallery-container.active .img-2 { transform: translate(140px, 20px) rotate(10deg); }
+            .gallery-container.active .img-3 { transform: translate(0px, -100px) scale(0.9); }
+        }
+
+        /* --- 5. SHOP GRID --- */
+        .shop-grid { padding: 40px 20px; background-color: #fff; }
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 1200px; margin: 0 auto; }
+        .product-card { text-align: center; }
+        .card-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        .product-name { font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block; }
+        .product-price { color: #555; font-size: 13px; }
+
+        /* --- 6. FOOTER --- */
+        footer { background-color: #111; color: #fff; padding: 40px 20px; text-align: center; }
+        .footer-logo-img { width: 120px; display: inline-block; margin-bottom: 20px; }
+        .footer-links { list-style: none; padding: 0; margin-bottom: 20px; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #aaa; text-decoration: none; }
+
+        /* --- MOBILE NAV --- */
+        @media (max-width: 768px) {
             .nav-links {
-                display: none; position: absolute; top: 70px; left: 0; width: 100%;
-                background-color: #fff; flex-direction: column; align-items: center;
-                padding: 30px 0; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border-top: 1px solid #eee;
+                display: none; position: absolute; top: 60px; left: 0; width: 100%;
+                background: #fff; flex-direction: column; padding: 20px;
+                border-top: 1px solid #eee; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             }
             .nav-links.active { display: flex; }
-
-            /* --- FIXED ANIMATION LAYOUT --- */
-            .gallery-wrapper { flex-direction: column; text-align: center; }
-            
-            /* Give the container enough height so the Top image doesn't get cut off */
-            .gallery-left { min-height: 480px; align-items: center; } 
-            
-            .gallery-right { padding-left: 0; margin-top: 10px; }
-
-            /* 1. MAKE THE CARD SMALLER ON MOBILE */
-            .gallery-container {
-                width: 180px;  /* Reduced from 240px */
-                height: 260px; /* Reduced from 320px */
-            }
-
-            /* 2. REDUCE POP-OUT DISTANCE (So it fits on screen) */
-            
-            /* Left Image: Move less (-90px) */
-            .gallery-container.active .img-1 { 
-                transform: translate(-90px, 15px) rotate(-10deg) scale(0.9); 
-            }
-            
-            /* Top Image: Move up clearly */
-            .gallery-container.active .img-2 { 
-                transform: translate(0px, -130px) scale(0.9); 
-            }
-            
-            /* Right Image: Move less (90px) */
-            .gallery-container.active .img-3 { 
-                transform: translate(90px, 15px) rotate(10deg) scale(0.9); 
-            }
-            
-            /* Shop Grid Mobile Fix */
-            .shop-grid { padding: 40px 20px; }
-            .grid-container { grid-template-columns: 1fr 1fr; gap: 15px; }
-            
-            .hero h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
+
+    <div class="sticky-review-tab">★ Reviews</div>
 
     <nav>
         <div class="hamburger" onclick="toggleMenu()">
@@ -255,56 +192,32 @@
     </nav>
 
     <header class="hero">
-        <h1>The Most Natural Protective Style You'll Ever Wear</h1>
-        <p>Experience the confidence of 100% human hair—effortless, soft, and uniquely yours.</p>
+        <div class="live-now-btn">Live now!</div>
+        <h1>Yanky Lush Collection</h1>
+        <p>Experience luxury in every strand.</p>
         <button class="btn-main">Shop Now</button>
     </header>
-
-    <section class="features">
-        <div class="feature-item">
-            <span class="feature-icon">✨</span>
-            <h3>Meticulously Hand-Crafted</h3>
-            <p>Artisan-made for a flawless finish that mimics natural growth.</p>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">🍃</span>
-            <h3>Feather-Light Comfort</h3>
-            <p>Designed for all-day wear with zero tension on your edges.</p>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">💧</span>
-            <h3>Undetectably Natural</h3>
-            <p>Seamlessly blends with your scalp for a look that's purely you.</p>
-        </div>
-    </section>
 
     <section class="gallery-section">
         <div class="gallery-wrapper">
             <div class="gallery-left">
                 <div class="gallery-container" id="animated-card">
                     <img src="cramberry/cramberry1.webp" class="gallery-img img-back img-1" alt="Side">
-                    <img src="cramberry/cramberry2.webp" class="gallery-img img-back img-2" alt="Back">
-                    <img src="cramberry/cramberry3.webp" class="gallery-img img-back img-3" alt="Detail">
+                    <img src="cramberry/cramberry2.webp" class="gallery-img img-back img-2" alt="Top">
+                    <img src="cramberry/cramberry3.webp" class="gallery-img img-back img-3" alt="Bottom">
                     <img src="cramberry/cramberry.webp" class="gallery-img img-main" alt="Main">
                 </div>
             </div>
+            
             <div class="gallery-right">
-                <h2>Luxury You Can Feel, <br>Quality You Can Trust.</h2>
-                <p>
-                    Stop compromising comfort for beauty. Our <strong>Yanky Lush</strong> collection is 
-                    <span class="highlight">100% hand-made</span> to ensure a breathable fit that protects your natural hair.
-                </p>
-                <p>
-                    It is so <span class="highlight">lightweight</span>, you’ll forget you’re wearing it. 
-                    Get the volume you love without the weight you hate.
-                </p>
-                <button class="btn-main" href="products.html">Shop This Look</button>
+                <h2>YankyLush Human Hair Collection</h2>
+                <p>Discover the Beauty of our Human Hair Collection — Effortless, soft and Unique.</p>
+                <button class="btn-main" style="margin-top: 15px; padding: 12px 30px;">Shop Now</button>
             </div>
         </div>
     </section>
 
     <section class="shop-grid">
-        <h2 style="text-align: center; margin-bottom: 30px;">Shop The Collection</h2>
         <div class="grid-container">
             <div class="product-card">
                 <img src="cramberry/cramberry.webp" class="card-img" alt="Ombre Caramel">
@@ -330,28 +243,14 @@
     </section>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-col"><img src="white-logo.avif" alt="Logo" class="footer-logo-img"></div>
-            <div class="footer-col">
-                <h4>Follow Us</h4>
-                <ul>
-                    <li><a href="https://www.instagram.com/crochetbraidsplus" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.facebook.com/profile.php?id=61572682072258" target="_blank">Facebook</a></li>
-                </ul>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 30px; font-size: 12px;">&copy; 2025 Crochet Braid Plus.</div>
+        <img src="white-logo.avif" alt="Logo" class="footer-logo-img">
+        <ul class="footer-links">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+        </ul>
+        <div style="font-size: 11px; color: #555;">&copy; 2024 Crochet Braid Plus.</div>
     </footer>
-
-    <div class="popup-overlay" id="promoPopup">
-        <div class="popup-box">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>Get 20% Off!</h2>
-            <p>Join the Yanky Lush family and get exclusive deals.</p>
-            <input type="email" placeholder="Enter your email address">
-            <button>Count Me In</button>
-        </div>
-    </div>
 
     <script>
         function toggleMenu() {
@@ -359,16 +258,6 @@
             nav.classList.toggle('active');
         }
 
-        // Pop-up Logic (Home Only)
-        window.onload = function() {
-            const path = window.location.pathname;
-            if (path.endsWith('index.html') || path === '/' || path.endsWith('/')) {
-                setTimeout(function() { document.getElementById('promoPopup').style.display = 'flex'; }, 5000); 
-            }
-        };
-        function closePopup() { document.getElementById('promoPopup').style.display = 'none'; }
-
-        // Animation Logic
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) { entry.target.classList.add('active'); }
