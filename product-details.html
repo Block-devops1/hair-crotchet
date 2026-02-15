@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yanky Lush Cranberry - Crochet Braid Plus</title>
+    <style>
+        /* --- 1. GLOBAL VARIABLES & RESET --- */
+        :root {
+            --primary: #000;
+            --accent: #f4a261;
+            --bg-light: #f9f9f9;
+            --text-dark: #333;
+            --text-light: #555;
+        }
+        
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0; background-color: #fff;
+            color: var(--text-dark); overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { margin: 0; font-weight: 700; }
+        p { line-height: 1.6; color: var(--text-light); }
+        button { cursor: pointer; transition: 0.3s; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- 2. NAVBAR --- */
+        nav {
+            background-color: #ffffff; padding: 15px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        .logo img { height: 45px; width: auto; display: block; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--text-dark); font-size: 14px; font-weight: 600; text-transform: uppercase; padding: 10px 0; }
+        .nav-links a:hover { color: var(--accent); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .line { width: 25px; height: 3px; background-color: #000; }
+        .icons { display: flex; align-items: center; }
+        .icons svg { width: 24px; height: 24px; margin-left: 20px; cursor: pointer; stroke: #000; fill: none; stroke-width: 2; }
+
+        /* --- 3. PRODUCT LAYOUT --- */
+        .product-container {
+            max-width: 1200px; margin: 40px auto; padding: 0 20px;
+            display: flex; gap: 50px;
+        }
+
+        .product-gallery { flex: 1; }
+        .main-image {
+            width: 100%; height: 500px; object-fit: cover;
+            border-radius: 10px; margin-bottom: 15px; cursor: crosshair;
+        }
+        .thumbnail-row { display: flex; gap: 10px; }
+        .thumb {
+            width: 80px; height: 80px; object-fit: cover; border-radius: 5px;
+            cursor: pointer; opacity: 0.6; transition: 0.3s; border: 1px solid transparent;
+        }
+        .thumb:hover, .thumb.active { opacity: 1; border-color: var(--primary); }
+
+        .product-info { flex: 1; }
+        .breadcrumbs { font-size: 12px; color: #888; margin-bottom: 15px; text-transform: uppercase; }
+        .product-title { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.1; }
+        
+        /* PRICE: Updated for USD styling */
+        .product-price { font-size: 1.8rem; color: var(--accent); font-weight: bold; margin-bottom: 20px; }
+        
+        .review-stars-top { color: #f4c150; font-size: 14px; margin-bottom: 20px; display: flex; align-items: center; }
+        .review-stars-top span { color: #555; margin-left: 10px; font-size: 12px; text-decoration: underline; cursor: pointer; }
+
+        .description { margin-bottom: 30px; font-size: 15px; }
+
+        .selector-group { margin-bottom: 20px; }
+        .selector-label { font-size: 13px; font-weight: bold; text-transform: uppercase; display: block; margin-bottom: 8px; }
+        .color-options { display: flex; gap: 10px; }
+        .color-swatch { 
+            width: 30px; height: 30px; border-radius: 50%; cursor: pointer; 
+            border: 2px solid #ddd; transition: 0.2s; position: relative;
+        }
+        .color-swatch.selected { border-color: #000; transform: scale(1.1); }
+        
+        .action-buttons { display: flex; gap: 15px; margin-top: 30px; }
+        .btn-add { 
+            flex: 2; background-color: #000; color: #fff; padding: 15px; 
+            border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-add:hover { background-color: var(--accent); }
+        .btn-wishlist { 
+            flex: 0 0 50px; background: #fff; border: 1px solid #ddd; font-size: 20px; 
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* --- 4. TABS --- */
+        .product-tabs { margin-top: 50px; border-top: 1px solid #eee; }
+        .tab-headers { display: flex; gap: 30px; margin-bottom: 20px; }
+        .tab-btn { 
+            background: none; border: none; padding: 15px 0; 
+            font-size: 14px; font-weight: bold; text-transform: uppercase; 
+            color: #888; cursor: pointer; position: relative;
+        }
+        .tab-btn.active { color: #000; }
+        .tab-btn.active::after { 
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: #000; 
+        }
+        .tab-content { display: none; font-size: 14px; color: #555; }
+        .tab-content.active { display: block; }
+        .tab-content ul { padding-left: 20px; margin-top: 10px; }
+        .tab-content li { margin-bottom: 8px; }
+
+        /* --- 5. REVIEWS SECTION --- */
+        .reviews-section-container {
+            background-color: #fcfcfc; padding: 60px 0; margin-top: 80px; border-top: 1px solid #eee;
+        }
+        .reviews-inner { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        .reviews-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px;
+        }
+        .overall-rating h2 { font-size: 2rem; margin-bottom: 5px; }
+        .btn-write-review {
+            background: #fff; border: 1px solid #000; padding: 10px 25px;
+            font-weight: bold; text-transform: uppercase; font-size: 12px; transition: 0.3s;
+        }
+        .btn-write-review:hover { background: #000; color: #fff; }
+
+        .review-item { display: flex; gap: 20px; margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
+        .reviewer-avatar {
+            width: 50px; height: 50px; background: #ddd; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff;
+        }
+        .review-content { flex: 1; }
+        .review-meta { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .reviewer-name { font-weight: bold; font-size: 14px; }
+        .verified-badge { color: #28a745; font-size: 12px; margin-left: 5px; }
+        .review-date { color: #999; font-size: 12px; }
+        .user-stars { color: #f4c150; font-size: 14px; margin-bottom: 10px; }
+        .review-text { font-size: 14px; line-height: 1.6; color: #444; }
+        .review-photos { display: flex; gap: 10px; margin-top: 15px; }
+        .review-photo { width: 80px; height: 80px; object-fit: cover; border-radius: 5px; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .product-container { flex-direction: column; }
+            .main-image { height: 350px; }
+            .reviews-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="hamburger"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+        <a href="index.html" class="logo"><img src="main-logo.webp" alt="Crochet Braid Plus"></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="reviews.html">Reviews</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="icons">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </div>
+    </nav>
+
+    <div class="product-container">
+        
+        <div class="product-gallery">
+            <img src="cramberry/cramberry.webp" class="main-image" id="mainImg">
+            <div class="thumbnail-row">
+                <img src="cramberry/cramberry.webp" class="thumb active" onclick="changeImage(this)">
+                <img src="cramberry/cramberry1.webp" class="thumb" onclick="changeImage(this)">
+                <img src="cramberry/cramberry2.webp" class="thumb" onclick="changeImage(this)">
+                <img src="cramberry/cramberry3.webp" class="thumb" onclick="changeImage(this)">
+            </div>
+        </div>
+
+        <div class="product-info">
+            <div class="breadcrumbs">Home / Yanky Lush / Cranberry Mix</div>
+            <h1 class="product-title">Yanky Lush - Cranberry Mix</h1>
+            
+            <div class="review-stars-top">
+                ★★★★★ <span>(142 Reviews)</span>
+            </div>
+
+            <div class="product-price">$129.99</div>
+
+            <p class="description">
+                Our best-selling Yanky Lush in the stunning Cranberry Mix color. 
+                100% Handmade, lightweight, and designed to mimic natural hair texture perfectly.
+                Water-friendly and beginner friendly installation.
+            </p>
+
+            <div class="selector-group">
+                <span class="selector-label">Color: Cranberry Mix</span>
+                <div class="color-options">
+                    <div class="color-swatch selected" style="background: #5D2E2E;"></div>
+                    <div class="color-swatch" style="background: #000;"></div>
+                    <div class="color-swatch" style="background: #8B5A2B;"></div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-add">Add to Cart</button>
+                <button class="btn-wishlist">♡</button>
+            </div>
+
+            <div class="product-tabs">
+                <div class="tab-headers">
+                    <button class="tab-btn active" onclick="openTab('desc')">Description</button>
+                    <button class="tab-btn" onclick="openTab('ship')">Shipping & Returns</button>
+                </div>
+                <div id="desc" class="tab-content active">
+                    <ul>
+                        <li><strong>Texture:</strong> Soft, Human Hair feel</li>
+                        <li><strong>Weight:</strong> Ultra Lightweight (approx 3.5oz)</li>
+                        <li><strong>Install:</strong> Crochet Method (No Glue)</li>
+                        <li><strong>Life Span:</strong> 2+ Years with care</li>
+                    </ul>
+                </div>
+                <div id="ship" class="tab-content">
+                    <p><strong>Fast Shipping from USA:</strong> Orders are processed within 24-48 hours.</p>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Standard Shipping:</strong> 3-5 Business Days (USPS/UPS)</li>
+                        <li><strong>Expedited Shipping:</strong> 2-Day Delivery available at checkout.</li>
+                        <li><strong>Returns:</strong> Accepted within 30 days of delivery.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews-section-container">
+        <div class="reviews-inner">
+            
+            <div class="reviews-header">
+                <div class="overall-rating">
+                    <h2>4.9 / 5.0</h2>
+                    <div style="color: #f4c150; font-size: 20px;">★★★★★</div>
+                    <p style="font-size: 12px; color: #777;">Based on 142 Reviews</p>
+                </div>
+                <a href="reviews.html" class="btn-write-review">Write a Review</a>
+            </div>
+
+            <div class="review-item">
+                <div class="reviewer-avatar" style="background: #f4a261;">SJ</div>
+                <div class="review-content">
+                    <div class="review-meta">
+                        <span class="reviewer-name">Sarah J. <span class="verified-badge">✔ Verified Buyer</span></span>
+                        <span class="review-date">2 days ago</span>
+                    </div>
+                    <div class="user-stars">★★★★★</div>
+                    <p class="review-text">This hair is absolutely stunning! It's so light I forget I have it on. The cranberry color pops perfectly against my skin tone.</p>
+                    <div class="review-photos">
+                        <img src="cramberry/cramberry1.webp" class="review-photo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-item">
+                <div class="reviewer-avatar" style="background: #333;">AM</div>
+                <div class="review-content">
+                    <div class="review-meta">
+                        <span class="reviewer-name">Amara M. <span class="verified-badge">✔ Verified Buyer</span></span>
+                        <span class="review-date">1 week ago</span>
+                    </div>
+                    <div class="user-stars">★★★★★</div>
+                    <p class="review-text">Best investment ever. I've reused this hair twice now and it still looks fresh. Highly recommend the Yanky Lush collection.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="background:#111; color:#fff; padding:40px; text-align:center;">
+        <p>&copy; 2024 Crochet Braid Plus.</p>
+    </footer>
+
+    <script>
+        function changeImage(thumb) {
+            document.getElementById('mainImg').src = thumb.src;
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        }
+
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).style.display = 'block';
+            event.target.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
